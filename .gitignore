@@ -113,3 +113,8 @@ docgen_tmp/
 
 # Parser stuff
 parser/raylib_parser
+
+**/bin/
+**/bin-int/
+**/bin/**
+**/bin-int/**
