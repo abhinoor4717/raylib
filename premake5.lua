@@ -36,7 +36,8 @@ end
 local raylib_dir = path.getabsolute(".")
 
 project "raylib"
-    kind "StaticLib"
+    kind "SharedLib"
+    staticruntime "on"
 
     platform_defines()
 
@@ -49,6 +50,10 @@ project "raylib"
 
     filter { "system:linux or system:macosx" }
         pic "On"
+    filter "system:windows"
+        links {
+            "winmm"
+        }
 
      filter "action:vs*"
         defines{"_WINSOCK_DEPRECATED_NO_WARNINGS", "_CRT_SECURE_NO_WARNINGS"}
@@ -66,7 +71,9 @@ project "raylib"
 
      removefiles {raylib_dir .. "/src/rcore_*.c"}
 
-     filter { "system:macosx", "files:" .. raylib_dir .. "/src/rglfw.c" }
+     filter { "system:macosx", "files: src/rglfw.c" }
         compileas "Objective-C"
 
      filter{}
+
+     defines { "BUILD_LIBTYPE_SHARED" }
